@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <cerrno>
+#include <climits>
 
 #include "TypeDetector.hpp"
 

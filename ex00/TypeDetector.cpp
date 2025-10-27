@@ -19,7 +19,7 @@ TypeDetector	&TypeDetector::operator=(const TypeDetector &other)
 
 bool	TypeDetector::_isChar(const std::string &literal)
 {
-	return (literal.length() == 1 && std::isprint(literal[0]) && !std::isdigit(literal[0]));
+	return (literal.length() == 1 && !std::isdigit(literal[0])); // removed is printable check
 }
 
 bool	TypeDetector::_isPseudo(const std::string &literal)
@@ -67,7 +67,7 @@ bool	TypeDetector::_isDouble(const std::string &literal)
 {
 	bool	hasDot = false;
 	bool	hasDigit = false;
-	size_t		i = (literal[0] == '-' || literal[0] == '+') ? 1 : 0;
+	size_t	i = (literal[0] == '-' || literal[0] == '+') ? 1 : 0;
 
 	if (literal[i] == '\0')
 		return (false);
@@ -76,7 +76,7 @@ bool	TypeDetector::_isDouble(const std::string &literal)
 	{
 		if (literal[i] == '.')
 		{
-			if (hasDot) return false;
+			if (hasDot) return (false);
 			hasDot = true;
 		}
 		else if (std::isdigit(literal[i]))
