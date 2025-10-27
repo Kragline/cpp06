@@ -3,7 +3,7 @@ NAME = ex00
 CPP = c++
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-FILENAMES = main ScalarConverter
+FILENAMES = main ScalarConverter TypeDetector
 SOURCES = $(addsuffix .cpp, $(FILENAMES))
 OBJECTS = $(addsuffix .o, $(FILENAMES))
 

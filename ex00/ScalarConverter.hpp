@@ -2,9 +2,8 @@
 
 #include <iostream>
 #include <cstdlib>
-#include <climits>
-#include <cfloat>
-#include <cerrno>
+
+#include "TypeDetector.hpp"
 
 class ScalarConverter
 {
