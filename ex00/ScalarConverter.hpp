@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <cerrno>
 #include <climits>
+#include <limits>
 
 #include "TypeDetector.hpp"
 
