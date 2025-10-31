@@ -22,12 +22,6 @@ bool	TypeDetector::_isChar(const std::string &literal)
 	return (literal.length() == 1 && !std::isdigit(literal[0])); // removed is printable check
 }
 
-bool	TypeDetector::_isPseudo(const std::string &literal)
-{
-	return (literal == "-inff" || literal == "+inff" || literal == "nanf"
-			|| literal == "-inf" || literal == "+inf" || literal == "nan");
-}
-
 bool	TypeDetector::_isInt(const std::string &literal)
 {
 	size_t	i = (literal[0] == '-' || literal[0] == '+') ? 1 : 0;
@@ -46,6 +40,8 @@ bool	TypeDetector::_isFloat(const std::string &literal)
 {
 	int	fCount = 0;
 	
+	if (literal == "-inff" || literal == "+inff" || literal == "nanf")
+		return (true);
 	if (literal.length() < 2 || literal[literal.length() - 1] != 'f')
 		return (false);
 
@@ -68,6 +64,9 @@ bool	TypeDetector::_isDouble(const std::string &literal)
 	bool	hasDot = false;
 	bool	hasDigit = false;
 	size_t	i = (literal[0] == '-' || literal[0] == '+') ? 1 : 0;
+
+	if (literal == "-inf" || literal == "+inf" || literal == "nan")
+		return (true);
 
 	if (literal[i] == '\0')
 		return (false);
@@ -93,7 +92,6 @@ Type	TypeDetector::detectType(const std::string &literal)
 	if (literal.empty()) return (INVALID);
 
 	if (_isChar(literal)) return (CHAR);
-	if (_isPseudo(literal)) return (PSEUDO);
 	if (_isInt(literal)) return (INT);
 	if (_isFloat(literal)) return (FLOAT);
 	if (_isDouble(literal)) return (DOUBLE);

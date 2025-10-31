@@ -10,7 +10,6 @@ enum Type {
     INT,
     FLOAT,
     DOUBLE,
-	PSEUDO,
     INVALID
 };
 
@@ -23,7 +22,6 @@ private:
 	TypeDetector	&operator=(const TypeDetector &other);
 	
 	static bool	_isChar(const std::string &literal);
-	static bool	_isPseudo(const std::string &literal);
 	static bool	_isInt(const std::string &literal);
 	static bool	_isFloat(const std::string &literal);
 	static bool	_isDouble(const std::string &literal);

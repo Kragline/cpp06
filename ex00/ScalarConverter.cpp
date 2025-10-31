@@ -17,48 +17,6 @@ ScalarConverter	&ScalarConverter::operator=(const ScalarConverter &other)
 }
 //
 
-// printing functions TODO
-
-static void	handlePseudo(const std::string &literal)
-{
-	if (literal == "nanf")
-	{
-		std::cout << "NANF: " << std::numeric_limits<float>::quiet_NaN() << std::endl;
-		exit(0);
-	}
-	if (literal == "+inff")
-	{
-		std::cout << "+INFF: " << std::numeric_limits<float>::infinity() << std::endl;
-		exit(0);
-	}
-	if (literal == "-inff")
-	{
-		std::cout << "-INFF: " << -std::numeric_limits<float>::infinity() << std::endl;
-		exit(0);
-	}
-	if (literal == "nan")
-	{
-		std::cout << "NAN: " << std::numeric_limits<double>::quiet_NaN() << std::endl;
-		exit(0);
-	}
-	if (literal == "+inf")
-	{
-		std::cout << "+INF: " << std::numeric_limits<double>::infinity() << std::endl;
-		exit(0);
-	}
-	if (literal == "-inf")
-	{
-		std::cout << "-INF: " << -std::numeric_limits<double>::infinity() << std::endl;
-		exit(0);
-	}
-}
-
-static void	toChar(const std::string &literal)
-{
-	Printer::forChar(static_cast<char>(literal[0]));
-	exit(0);
-}
-
 static void	toInt(const std::string &literal)
 {
 	errno = 0;
@@ -78,11 +36,26 @@ static void	toInt(const std::string &literal)
 		exit(1);
 	}
 	Printer::forInt(static_cast<int>(longResult));
-	exit(0);
 }
 
 static void	toFloat(const std::string &literal)
 {
+	if (literal == "nanf")
+	{
+		Printer::forFloat(std::numeric_limits<float>::quiet_NaN());
+		return ;
+	}
+	else if (literal == "+inff")
+	{
+		Printer::forFloat(std::numeric_limits<float>::infinity());
+		return ;
+	}
+	else if (literal == "-inff")
+	{
+		Printer::forFloat(-std::numeric_limits<float>::infinity());
+		return ;
+	}
+
 	errno = 0;
 	char		*endPtr;
 	std::string	withoutF = literal.substr(0, literal.length() - 1);
@@ -100,12 +73,27 @@ static void	toFloat(const std::string &literal)
 		std::cerr << "Error: Float overflow" << std::endl;
 		exit(1);
 	}
-	std::cout << "FLOAT: " << static_cast<float>(doubleValue) << std::endl;
-	exit(0);
+	Printer::forFloat(static_cast<float>(doubleValue));
 }
 
 static void	toDouble(const std::string &literal)
 {
+	if (literal == "nan")
+	{
+		Printer::forDouble(std::numeric_limits<double>::quiet_NaN());
+		return ;
+	}
+	else if (literal == "+inf")
+	{
+		Printer::forDouble(std::numeric_limits<double>::infinity());
+		return ;
+	}
+	else if (literal == "-inf")
+	{
+		Printer::forDouble(-std::numeric_limits<double>::infinity());
+		return ;
+	}
+
 	errno = 0;
 	char		*endPtr;
 	double		doubleValue = std::strtod(literal.c_str(), &endPtr);
@@ -123,19 +111,16 @@ static void	toDouble(const std::string &literal)
 		exit(1);
 	}
 	std::cout << "DOUBLE: " << doubleValue << std::endl;
-	exit(0);
 }
 
 void	ScalarConverter::convert(std::string literal)
 {
 	switch (TypeDetector::detectType(literal))
 	{
-		case CHAR: toChar(literal); break;
+		case CHAR: Printer::forChar(static_cast<char>(literal[0])); break;
 		case INT: toInt(literal); break;
 		case FLOAT: toFloat(literal); break;
 		case DOUBLE: toDouble(literal); break;
-		case PSEUDO: handlePseudo(literal); break;
-		case INVALID: std::cout << "Invalid literal format"; break;
+		case INVALID: std::cerr << "Invalid literal format" << std::endl; break;
 	}
-    std::cout << std::endl;
 }
