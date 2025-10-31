@@ -3,10 +3,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <cerrno>
-#include <climits>
-#include <limits>
 
 #include "TypeDetector.hpp"
+#include "Printer.hpp"
 
 class ScalarConverter
 {

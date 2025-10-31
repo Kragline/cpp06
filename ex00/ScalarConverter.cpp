@@ -55,7 +55,7 @@ static void	handlePseudo(const std::string &literal)
 
 static void	toChar(const std::string &literal)
 {
-	std::cout << "CHAR: " << static_cast<char>(literal[0]) << std::endl;
+	Printer::forChar(static_cast<char>(literal[0]));
 	exit(0);
 }
 
@@ -65,18 +65,19 @@ static void	toInt(const std::string &literal)
 	char	*endPtr;
 	long	longResult = std::strtol(literal.c_str(), &endPtr, 10);
 
-	if (endPtr == literal.c_str() || *endPtr != '\0')
+	if (endPtr == literal.c_str() || *endPtr != '\0'
+		|| (longResult == 0 && literal != "0"))
 	{
 		std::cerr << "Error: Invalid integer format" << std::endl;
 		exit(1);
 	}
-	if (errno == ERANGE || longResult < std::numeric_limits<int>::max()
-		|| longResult > std::numeric_limits<int>::min())
+	if (errno == ERANGE || longResult < std::numeric_limits<int>::min()
+		|| longResult > std::numeric_limits<int>::max())
 	{
 		std::cerr << "Error: Integer overflow" << std::endl;
 		exit(1);
 	}
-	std::cout << "INT: " << static_cast<int>(longResult) << std::endl; //todo
+	Printer::forInt(static_cast<int>(longResult));
 	exit(0);
 }
 
@@ -87,12 +88,13 @@ static void	toFloat(const std::string &literal)
 	std::string	withoutF = literal.substr(0, literal.length() - 1);
 	double		doubleValue = std::strtod(withoutF.c_str(), &endPtr);
 
-	if (endPtr == withoutF.c_str() || *endPtr != '\0')
+	if (endPtr == withoutF.c_str() || *endPtr != '\0'
+		|| (doubleValue == 0.0 && literal != "0.0f"))
 	{
 		std::cerr << "Error: Invalid float format" << std::endl;
 		exit(1);
 	}
-	if (errno == ERANGE || doubleValue < -std::numeric_limits<float>::min()
+	if (errno == ERANGE || doubleValue < std::numeric_limits<float>::min()
 		|| doubleValue > std::numeric_limits<float>::max())
 	{
 		std::cerr << "Error: Float overflow" << std::endl;
@@ -102,32 +104,22 @@ static void	toFloat(const std::string &literal)
 	exit(0);
 }
 
-static bool	isZeroLiteral(const std::string &literal)
-{
-	return (literal == "0" || literal == "0.0" || literal == "+0" || 
-			literal == "-0" || literal == "+0.0" || literal == "-0.0");
-}
-
 static void	toDouble(const std::string &literal)
 {
 	errno = 0;
 	char		*endPtr;
 	double		doubleValue = std::strtod(literal.c_str(), &endPtr);
 
-	if (endPtr == literal.c_str() || *endPtr != '\0')
+	if (endPtr == literal.c_str() || *endPtr != '\0'
+		|| (doubleValue == 0.0 && literal != "0.0"))
 	{
 		std::cerr << "Error: Invalid double format" << std::endl;
 		exit(1);
 	}
-	if (errno == ERANGE || doubleValue < -std::numeric_limits<float>::min()
+	if (errno == ERANGE || doubleValue < std::numeric_limits<float>::min()
 		|| doubleValue > std::numeric_limits<float>::max())
 	{
 		std::cerr << "Error: Double overflow" << std::endl;
-		exit(1);
-	}
-	if (doubleValue == 0.0 && !isZeroLiteral(literal))
-	{
-		std::cerr << "Error: Invalid double format" << std::endl;
 		exit(1);
 	}
 	std::cout << "DOUBLE: " << doubleValue << std::endl;
