@@ -67,7 +67,7 @@ static void	toFloat(const std::string &literal)
 		std::cerr << "Error: Invalid float format" << std::endl;
 		exit(1);
 	}
-	if (errno == ERANGE || doubleValue < std::numeric_limits<float>::min()
+	if (errno == ERANGE || doubleValue < -std::numeric_limits<float>::max()
 		|| doubleValue > std::numeric_limits<float>::max())
 	{
 		std::cerr << "Error: Float overflow" << std::endl;
@@ -104,13 +104,13 @@ static void	toDouble(const std::string &literal)
 		std::cerr << "Error: Invalid double format" << std::endl;
 		exit(1);
 	}
-	if (errno == ERANGE || doubleValue < std::numeric_limits<float>::min()
-		|| doubleValue > std::numeric_limits<float>::max())
+	if (errno == ERANGE || doubleValue < -std::numeric_limits<double>::max()
+		|| doubleValue > std::numeric_limits<double>::max())
 	{
 		std::cerr << "Error: Double overflow" << std::endl;
 		exit(1);
 	}
-	std::cout << "DOUBLE: " << doubleValue << std::endl;
+	Printer::forDouble(doubleValue);
 }
 
 void	ScalarConverter::convert(std::string literal)

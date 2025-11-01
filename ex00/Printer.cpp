@@ -3,18 +3,11 @@
 // not implemented
 Printer::Printer() {}
 
-Printer::Printer(const Printer &other)
-{
-	(void)other;
-}
+Printer::Printer(const Printer &other) { (void)other; }
 
 Printer::~Printer() {}
 
-Printer	&Printer::operator=(const Printer &other)
-{
-	(void)other;
-	return (*this);
-}
+Printer	&Printer::operator=(const Printer &other) { (void)other; return (*this); }
 //
 
 void	Printer::forChar(char c)
@@ -37,8 +30,8 @@ void	Printer::forInt(int i)
 	std::cout << std::endl;
 
 	std::cout << "int: " << i << std::endl;
-	std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
-	std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(i) << "f" << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(i) << std::endl;
 }
 
 void	Printer::forFloat(float f)
@@ -62,10 +55,8 @@ void	Printer::forFloat(float f)
 	std::cout << "float: ";
 	if (std::isnan(f))
 		std::cout << "nanf";
-	else if (f == std::numeric_limits<float>::infinity())
-		std::cout << "inff";
-	else if (f == -std::numeric_limits<float>::infinity())
-		std::cout << "-inff";
+	else if (std::isinf(f))
+		std::cout << (f > 0 ? "inff" : "-inff");
 	else
 		std::cout << std::fixed << std::setprecision(1) << f << "f";
 	std::cout << std::endl;
@@ -73,10 +64,8 @@ void	Printer::forFloat(float f)
 	std::cout << "double: ";
 	if (std::isnan(f))
 		std::cout << "nan";
-	else if (f == std::numeric_limits<float>::infinity())
-		std::cout << "inf";
-	else if (f == -std::numeric_limits<float>::infinity())
-		std::cout << "-inf";
+	else if (std::isinf(f))
+		std::cout << (f > 0 ? "inf" : "-inf");
 	else
 		std::cout << std::fixed << std::setprecision(1) << static_cast<double>(f);
 	std::cout << std::endl;
@@ -103,10 +92,8 @@ void	Printer::forDouble(double d)
 	std::cout << "float: ";
 	if (std::isnan(d))
 		std::cout << "nanf";
-	else if (d == std::numeric_limits<double>::infinity())
-		std::cout << "inff";
-	else if (d == -std::numeric_limits<double>::infinity())
-		std::cout << "-inff";
+	else if (std::isinf(d))
+		std::cout << (d > 0 ? "inff" : "-inff");
 	else
 		std::cout << std::fixed << std::setprecision(1) << static_cast<float>(d) << "f";
 	std::cout << std::endl;
@@ -114,10 +101,8 @@ void	Printer::forDouble(double d)
 	std::cout << "double: ";
 	if (std::isnan(d))
 		std::cout << "nan";
-	else if (d == std::numeric_limits<double>::infinity())
-		std::cout << "inf";
-	else if (d == -std::numeric_limits<double>::infinity())
-		std::cout << "-inf";
+	else if (std::isinf(d))
+		std::cout << (d > 0 ? "inf" : "-inf");
 	else
 		std::cout << std::fixed << std::setprecision(1) << d;
 	std::cout << std::endl;

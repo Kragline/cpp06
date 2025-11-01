@@ -4,6 +4,7 @@
 #include <limits>
 #include <iomanip>
 #include <cmath>
+#include <cfloat>
 
 class Printer
 {
