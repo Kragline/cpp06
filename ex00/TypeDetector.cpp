@@ -3,18 +3,11 @@
 // not implemented
 TypeDetector::TypeDetector() {}
 
-TypeDetector::TypeDetector(const TypeDetector &other)
-{
-	(void)other;
-}
+TypeDetector::TypeDetector(const TypeDetector &other) {	(void)other; }
 
 TypeDetector::~TypeDetector() {}
 
-TypeDetector	&TypeDetector::operator=(const TypeDetector &other)
-{
-	(void)other;
-	return (*this);
-}
+TypeDetector	&TypeDetector::operator=(const TypeDetector &other) { (void)other; return (*this); }
 //
 
 bool	TypeDetector::_isChar(const std::string &literal)

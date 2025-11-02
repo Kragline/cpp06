@@ -3,18 +3,11 @@
 // not implemented
 ScalarConverter::ScalarConverter() {}
 
-ScalarConverter::ScalarConverter(const ScalarConverter &other)
-{
-	(void)other;
-}
+ScalarConverter::ScalarConverter(const ScalarConverter &other) { (void)other; }
 
 ScalarConverter::~ScalarConverter() {}
 
-ScalarConverter	&ScalarConverter::operator=(const ScalarConverter &other)
-{
-	(void)other;
-	return (*this);
-}
+ScalarConverter	&ScalarConverter::operator=(const ScalarConverter &other) {	(void)other; return (*this); }
 //
 
 static void	toInt(const std::string &literal)
