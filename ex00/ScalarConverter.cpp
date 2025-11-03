@@ -110,7 +110,7 @@ void	ScalarConverter::convert(std::string literal)
 {
 	switch (TypeDetector::detectType(literal))
 	{
-		case CHAR: Printer::forChar(static_cast<char>(literal[0])); break;
+		case CHAR: Printer::forChar(literal[0]); break;
 		case INT: toInt(literal); break;
 		case FLOAT: toFloat(literal); break;
 		case DOUBLE: toDouble(literal); break;

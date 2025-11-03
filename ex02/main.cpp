@@ -8,5 +8,7 @@ int main ()
 	identify(objPtr);
 	identify(objRef);
 
+	delete objPtr;
+
 	return (0);
 }

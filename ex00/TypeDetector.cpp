@@ -12,7 +12,7 @@ TypeDetector	&TypeDetector::operator=(const TypeDetector &other) { (void)other; 
 
 bool	TypeDetector::_isChar(const std::string &literal)
 {
-	return (literal.length() == 1 && !std::isdigit(literal[0])); // removed is printable check
+	return (literal.length() == 1 && !std::isdigit(literal[0]));
 }
 
 bool	TypeDetector::_isInt(const std::string &literal)
@@ -20,6 +20,10 @@ bool	TypeDetector::_isInt(const std::string &literal)
 	size_t	i = (literal[0] == '-' || literal[0] == '+') ? 1 : 0;
 	
 	if (literal[i] == '\0')
+		return (false);
+
+	// checks if literal is in octal format (not decimal)
+	if (literal[i] == '0' && literal.length() > i + 1)
 		return (false);
 	
 	for (; i < literal.length(); i++)
@@ -63,6 +67,11 @@ bool	TypeDetector::_isDouble(const std::string &literal)
 
 	if (literal[i] == '\0')
 		return (false);
+
+	// checks if literal is in octal format (not decimal)
+	if (literal[i] == '0' && i + 1 < literal.length())
+		if (literal[i + 1] != '.' && literal.length() > i + 1)
+			return (false);
 
 	for (; i < literal.length(); i++)
 	{

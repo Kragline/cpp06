@@ -31,7 +31,7 @@ void	Printer::forInt(int i)
 
 	std::cout << "int: " << i << std::endl;
 	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(i) << "f" << std::endl;
-	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(i) << std::endl;
+	std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<float>(i) << std::endl;
 }
 
 void	Printer::forFloat(float f)
